@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="EnterpriseServiceImplService" targetNamespace="http://it.company.com/" xmlns:ns1="http://cxf.apache.org/bindings/xformat" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://it.company.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://it.company.com/" version="1.0" xmlns:ns1="http://cxf.apache.org/bindings/xformat" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://it.company.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xs:element name="checkByEmail" type="tns:checkByEmail"/>
+<xs:element name="checkByEmailResponse" type="tns:checkByEmailResponse"/>
+<xs:element name="checkByID" type="tns:checkByID"/>
+<xs:element name="checkByIDResponse" type="tns:checkByIDResponse"/>
+<xs:complexType name="checkByID">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="checkByIDResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="checkByEmail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="checkByEmailResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="checkByID">
+    <wsdl:part name="parameters" element="tns:checkByID">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkByEmail">
+    <wsdl:part name="parameters" element="tns:checkByEmail">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkByIDResponse">
+    <wsdl:part name="parameters" element="tns:checkByIDResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkByEmailResponse">
+    <wsdl:part name="parameters" element="tns:checkByEmailResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EnterpriseService">
+    <wsdl:operation name="checkByID">
+      <wsdl:input name="checkByID" message="tns:checkByID">
+    </wsdl:input>
+      <wsdl:output name="checkByIDResponse" message="tns:checkByIDResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkByEmail">
+      <wsdl:input name="checkByEmail" message="tns:checkByEmail">
+    </wsdl:input>
+      <wsdl:output name="checkByEmailResponse" message="tns:checkByEmailResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EnterpriseServiceImplServiceSoapBinding" type="tns:EnterpriseService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="checkByEmail">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="checkByEmail">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="checkByEmailResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkByID">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="checkByID">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="checkByIDResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EnterpriseServiceImplService">
+    <wsdl:port name="EnterpriseServiceImplPort" binding="tns:EnterpriseServiceImplServiceSoapBinding">
+      <soap:address location="http://localhost:8080/CXFExampleService/EnterpriseService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

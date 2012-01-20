@@ -1,0 +1,18 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.bookdb.data.Download" table="download" dynamic-insert="false" dynamic-update="false">
+        <id name="id" type="integer">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="email" type="string">
+            <column name="email" not-null="true"/>
+        </property>
+        <property name="twitter" type="string">
+            <column name="twitter"/>
+        </property>
+        <many-to-one name="book" class="com.bookdb.data.Book" cascade="none">
+            <column name="bookid" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

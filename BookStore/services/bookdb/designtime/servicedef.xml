@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<service xmlns="http://www.activegrid.com/namespaces/ServiceDefinitions/1.0" springFile="bookdb.spring.xml" type="DataService" CRUDService="true" class="com.bookdb.Bookdb" id="bookdb">
+    <operation name="getDownloadById" operationType="hqlquery">
+        <parameter isList="false" typeRef="java.lang.Integer" name="id"/>
+        <return isList="false" typeRef="com.bookdb.data.Download"/>
+    </operation>
+    <dataobjects>
+        <dataobject supportsQuickData="true" javaType="com.bookdb.data.Book">
+            <element allowNull="false" isList="false" typeRef="java.lang.Integer" name="id">
+                <require>delete</require>
+                <require>read</require>
+                <require>update</require>
+                <noChange>delete</noChange>
+                <noChange>read</noChange>
+                <noChange>update</noChange>
+                <exclude>insert</exclude>
+            </element>
+            <element allowNull="false" isList="false" typeRef="java.lang.String" name="title"/>
+            <element allowNull="true" isList="false" typeRef="java.lang.String" name="author"/>
+            <element allowNull="true" isList="false" typeRef="java.util.Date" name="publishdate"/>
+            <element allowNull="true" isList="false" typeRef="java.lang.String" name="cover"/>
+            <element allowNull="false" isList="false" typeRef="com.bookdb.data.Language" name="language"/>
+            <element allowNull="true" isList="true" typeRef="com.bookdb.data.Download" name="downloads"/>
+        </dataobject>
+        <dataobject supportsQuickData="true" javaType="com.bookdb.data.Download">
+            <element allowNull="false" isList="false" typeRef="java.lang.Integer" name="id">
+                <require>delete</require>
+                <require>read</require>
+                <require>update</require>
+                <noChange>delete</noChange>
+                <noChange>read</noChange>
+                <noChange>update</noChange>
+                <exclude>insert</exclude>
+            </element>
+            <element allowNull="false" isList="false" typeRef="java.lang.String" name="email"/>
+            <element allowNull="true" isList="false" typeRef="java.lang.String" name="twitter"/>
+            <element allowNull="false" isList="false" typeRef="com.bookdb.data.Book" name="book"/>
+        </dataobject>
+        <dataobject supportsQuickData="true" javaType="com.bookdb.data.Language">
+            <element allowNull="false" isList="false" typeRef="java.lang.Integer" name="id">
+                <require>delete</require>
+                <require>read</require>
+                <require>update</require>
+                <noChange>delete</noChange>
+                <noChange>read</noChange>
+                <noChange>update</noChange>
+                <exclude>insert</exclude>
+            </element>
+            <element allowNull="false" isList="false" typeRef="java.lang.String" name="language"/>
+            <element allowNull="true" isList="false" typeRef="java.lang.String" name="abbreviation"/>
+            <element allowNull="true" isList="false" typeRef="java.lang.Integer" name="numbooks"/>
+            <element allowNull="true" isList="false" typeRef="java.lang.Integer" name="numdownloads"/>
+            <element allowNull="true" isList="true" typeRef="com.bookdb.data.Book" name="books"/>
+        </dataobject>
+    </dataobjects>
+</service>

@@ -1,0 +1,30 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.bookdb.data.Book" table="book" dynamic-insert="false" dynamic-update="false">
+        <id name="id" type="integer">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+        <property name="title" type="string">
+            <column name="title" not-null="true"/>
+        </property>
+        <property name="author" type="string">
+            <column name="author"/>
+        </property>
+        <property name="publishdate" type="date">
+            <column name="publishdate" length="10"/>
+        </property>
+        <property name="cover" type="string">
+            <column name="cover"/>
+        </property>
+        <many-to-one name="language" class="com.bookdb.data.Language" cascade="none">
+            <column name="languageid" not-null="true"/>
+        </many-to-one>
+        <set name="downloads" inverse="true">
+            <key>
+                <column name="bookid" not-null="true"/>
+            </key>
+            <one-to-many class="com.bookdb.data.Download"/>
+        </set>
+    </class>
+</hibernate-mapping>

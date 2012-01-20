@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<service xmlns="http://www.activegrid.com/namespaces/ServiceDefinitions/1.0" springFile="ip2location.spring.xml" type="WebService" CRUDService="false" class="com.ip2location.api.ip2location.Ip2Location" id="ip2location">
+    <operation name="getLocation">
+        <parameter isList="false" typeRef="java.lang.String" name="ip"/>
+        <return isList="false" typeRef="java.lang.String"/>
+    </operation>
+    <dataobjects/>
+</service>

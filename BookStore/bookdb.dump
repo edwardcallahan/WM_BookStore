@@ -1,0 +1,120 @@
+-- MySQL dump 10.13  Distrib 5.5.11, for Win64 (x86)
+--
+-- Host: localhost    Database: bookdb
+-- ------------------------------------------------------
+-- Server version	5.5.11
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `bookdb`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `bookdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `bookdb`;
+
+--
+-- Table structure for table `book`
+--
+
+DROP TABLE IF EXISTS `book`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `book` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `author` varchar(255) DEFAULT NULL,
+  `publishdate` date DEFAULT NULL,
+  `cover` varchar(255) DEFAULT NULL,
+  `languageid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK2E3AE968D84575` (`languageid`),
+  CONSTRAINT `FK2E3AE968D84575` FOREIGN KEY (`languageid`) REFERENCES `language` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `book`
+--
+
+LOCK TABLES `book` WRITE;
+/*!40000 ALTER TABLE `book` DISABLE KEYS */;
+INSERT INTO `book` VALUES (1,'Spring for Dummies','Ed Callahan, Derek Henninger, and Ken Tamura','2011-10-27','',1),(2,'Professional Java Development with the Spring Framework','Rod Johnson, Juergen Holler, Alef Arendsen, Thomas Risberg, Colin Sampaleanu','2000-08-07','http://media.wiley.com/product_data/coverImage/33/07645748/0764574833.jpg',1),(4,'Beginning Spring Framework 2','Thomas Van de Velde, Bruce Snyder, Christian Dupuis, Sing Li, Anne Horton, Naveen Balani','2011-10-05','http://media.wiley.com/product_data/coverImage/1X/04701016/047010161X.jpg',1),(5,'Expert One-on-One J2EE Development without EJB','Rod Johnson, Juergen Hoeller','2004-06-07','http://media.wiley.com/product_data/coverImage/15/07645583/0764558315.jpg',1),(7,'Spring Recipes','Gary Mak, Daniel Rubio and Josh Long','2011-10-20','http://ecx.images-amazon.com/images/I/51Ls7crFFeL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_AA160_.jpg',1),(8,'Beginning Spring Framework 2','Thomas Van de Velde, Bruce Snyder, Christian Dupuis and Sing Li','2007-12-10','http://ecx.images-amazon.com/images/I/41-wW9ozaIL._BO2,204,203,200_PIsitb-sticker-arrow-click,TopRight,35,-76_AA300_SH20_OU01_.jpg',1),(9,'Spring in Action',' Craig Walls and Ryan Breidenbach','2007-08-23','http://ecx.images-amazon.com/images/I/51%2ByW6zN9zL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_AA160_.jpg',1);
+/*!40000 ALTER TABLE `book` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `download`
+--
+
+DROP TABLE IF EXISTS `download`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `download` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `bookid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK551AC8885C3E5957` (`bookid`),
+  CONSTRAINT `FK551AC8885C3E5957` FOREIGN KEY (`bookid`) REFERENCES `book` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `download`
+--
+
+LOCK TABLES `download` WRITE;
+/*!40000 ALTER TABLE `download` DISABLE KEYS */;
+INSERT INTO `download` VALUES (2,'edcallahan@edscoolco.com','biged',5),(3,'kent@tamura.co.jp','eaiken',5),(4,'dhenninger@vmware.com','derek',5),(5,'dhenninger@vmware.com','derek',2),(6,'dhenninger@vmware.com','derek',4),(7,'edcallahan@mai.com','ed',4);
+/*!40000 ALTER TABLE `download` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `language`
+--
+
+DROP TABLE IF EXISTS `language`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `language` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `language` varchar(255) NOT NULL,
+  `abbreviation` varchar(255) DEFAULT NULL,
+  `numbooks` int(11) DEFAULT NULL,
+  `numdownloads` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `language`
+--
+
+LOCK TABLES `language` WRITE;
+/*!40000 ALTER TABLE `language` DISABLE KEYS */;
+INSERT INTO `language` VALUES (1,'English','en',10,100),(2,'Japanese','ja',12,50),(3,'Spanish','sp',10,10),(4,'Arabic','ar',10,50),(5,'Bengali','be',50,2),(6,'Hindi','hi',10,10),(7,'Russian','ru',10,50),(8,'Portuguese','po',13,13),(9,'German','ge',16,60),(10,'Mandarin','ma',10,60),(11,'Cantonese','ca',20,200),(12,'Swahili','sw',3,3);
+/*!40000 ALTER TABLE `language` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2011-10-21  9:46:16

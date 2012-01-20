@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<service xmlns="http://www.activegrid.com/namespaces/ServiceDefinitions/1.0" springFile="Java_Svc.spring.xml" type="JavaService" CRUDService="false" class="com.vmware.demo.WMJavaSvc" id="Java_Svc">
+    <operation name="okToDownload">
+        <parameter isList="false" typeRef="java.lang.Long" name="custId"/>
+        <return isList="false" typeRef="java.lang.Integer"/>
+    </operation>
+    <operation name="getClientIP">
+        <parameter isList="false" typeRef="java.lang.Integer" name="country"/>
+        <return isList="false" typeRef="java.lang.String"/>
+    </operation>
+    <dataobjects/>
+</service>

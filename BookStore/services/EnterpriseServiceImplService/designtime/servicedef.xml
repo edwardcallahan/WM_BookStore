@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<service xmlns="http://www.activegrid.com/namespaces/ServiceDefinitions/1.0" springFile="EnterpriseServiceImplService.spring.xml" type="WebService" CRUDService="false" class="com.company.it.enterpriseserviceimplservice.EnterpriseServiceImplService" id="EnterpriseServiceImplService">
+    <operation name="checkByEmail">
+        <parameter isList="false" typeRef="com.company.it.enterpriseserviceimplservice.CheckByEmail" name="parameters"/>
+        <return isList="false" typeRef="com.company.it.enterpriseserviceimplservice.CheckByEmailResponse"/>
+    </operation>
+    <operation name="checkByID">
+        <parameter isList="false" typeRef="com.company.it.enterpriseserviceimplservice.CheckByID" name="parameters"/>
+        <return isList="false" typeRef="com.company.it.enterpriseserviceimplservice.CheckByIDResponse"/>
+    </operation>
+    <dataobjects>
+        <dataobject supportsQuickData="false" name="CheckByID" javaType="com.company.it.enterpriseserviceimplservice.CheckByID">
+            <element allowNull="false" isList="false" typeRef="java.lang.Long" name="arg0"/>
+        </dataobject>
+        <dataobject supportsQuickData="false" name="CheckByEmail" javaType="com.company.it.enterpriseserviceimplservice.CheckByEmail">
+            <element allowNull="false" isList="false" typeRef="java.lang.String" name="arg0"/>
+        </dataobject>
+        <dataobject supportsQuickData="false" name="CheckByIDResponse" javaType="com.company.it.enterpriseserviceimplservice.CheckByIDResponse">
+            <element allowNull="false" isList="false" typeRef="java.math.BigDecimal" name="return"/>
+        </dataobject>
+        <dataobject supportsQuickData="false" name="CheckByEmailResponse" javaType="com.company.it.enterpriseserviceimplservice.CheckByEmailResponse">
+            <element allowNull="false" isList="false" typeRef="java.lang.String" name="return"/>
+        </dataobject>
+    </dataobjects>
+</service>

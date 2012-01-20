@@ -1,0 +1,21 @@
+{
+	"methods": [{
+		"name": "checkByEmail",
+		"operationType": null,
+		"parameters": [{
+			"name": "parameters",
+			"type": "com.company.it.enterpriseserviceimplservice.CheckByEmail"
+		}],
+		"returnType": "com.company.it.enterpriseserviceimplservice.CheckByEmailResponse"
+	}, {
+		"name": "checkByID",
+		"operationType": null,
+		"parameters": [{
+			"name": "parameters",
+			"type": "com.company.it.enterpriseserviceimplservice.CheckByID"
+		}],
+		"returnType": "com.company.it.enterpriseserviceimplservice.CheckByIDResponse"
+	}],
+	"serviceType": "JSON-RPC",
+	"serviceURL": "EnterpriseServiceImplService.json"
+}

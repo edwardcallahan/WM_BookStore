@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:tns="http://api.ip2location.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://api.ip2location.com/">
+<wsdl:documentation>endpoint=http://api.ip2location.com/?ip={ip}&amp;key=demo</wsdl:documentation>
+  <wsdl:types>
+  </wsdl:types>
+  <wsdl:message name="ResponseMsg">
+    <wsdl:part name="body" type="xs:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RequestMsg">
+    <wsdl:part name="ip" type="xs:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ip2location">
+    <wsdl:operation name="GetLocation">
+      <wsdl:input message="tns:RequestMsg">
+    </wsdl:input>
+      <wsdl:output message="tns:ResponseMsg">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

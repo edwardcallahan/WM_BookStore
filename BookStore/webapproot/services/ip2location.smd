@@ -1,0 +1,13 @@
+{
+	"methods": [{
+		"name": "getLocation",
+		"operationType": null,
+		"parameters": [{
+			"name": "ip",
+			"type": "java.lang.String"
+		}],
+		"returnType": "java.lang.String"
+	}],
+	"serviceType": "JSON-RPC",
+	"serviceURL": "ip2location.json"
+}

@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+
+<!-- Generated 01/19/2012 08:15:39
+
+Configuration for 'bookdb' database service
+
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+    <bean 
+        id="bookdb"
+        class="com.bookdb.Bookdb"
+        scope="singleton"
+        lazy-init="true">
+        <property name="dataServiceManager">
+            <ref bean="bookdbDataService"/>
+        </property>
+        <property name="taskManager">
+            <ref bean="bookdbTaskMgr"/>
+        </property>
+    </bean>
+
+
+    <bean 
+        class="com.wavemaker.runtime.data.spring.WMPropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:bookdb.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean 
+        id="bookdbDataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource" 
+        lazy-init="true">
+        <property name="driverClassName" value="${bookdb.driverClassName}"/>
+        <property name="url" value="${bookdb.connectionUrl}"/>
+        <property name="username" value="${bookdb.username}"/>
+        <property name="password" value="${bookdb.password}"/>
+    </bean>
+
+
+    <bean 
+        id="bookdbTxMgr" 
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+        lazy-init="true">
+        <property name="sessionFactory">
+            <ref bean="bookdbSessionFactory"/>
+        </property>
+    </bean>
+
+
+    <bean 
+        id="bookdbHibernateTemplate"
+        class="org.springframework.orm.hibernate3.HibernateTemplate"
+        lazy-init="true">
+        <property name="sessionFactory"> 
+            <ref bean="bookdbSessionFactory"/>
+        </property>
+    </bean>  
+
+
+    <bean 
+        id="bookdbSessionFactory" 
+        class="com.wavemaker.runtime.data.spring.ConfigurationAndSessionFactoryBean"
+        lazy-init="true">
+
+        <!-- A unique name for this SessionFactory's configuration -->
+        <property name="name" value="bookdb"/>
+        <property name="dataSource" ref="bookdbDataSource"/>
+
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${bookdb.dialect}</prop>
+                <prop key="hibernate.transaction.factory_class">
+                    org.hibernate.transaction.JDBCTransactionFactory
+                </prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+            </props> 
+        </property>
+
+        <property name="mappingResources">
+            <list>
+
+<value>com/bookdb/data/Download.hbm.xml</value>
+<value>com/bookdb/data/Book.hbm.xml</value>
+<value>com/bookdb/data/Language.hbm.xml</value>
+
+<value>com/bookdb/data/Download.ql.xml</value>
+<value>com/bookdb/data/app-queries.ql.xml</value>
+
+            </list>
+        </property>
+
+    </bean>
+
+
+    <!-- the data service bean instance is injected into the service bean -->
+    <bean 
+        id="bookdbDataService" 
+        class="com.wavemaker.runtime.data.spring.SpringDataServiceManager"
+        lazy-init="true">
+        <constructor-arg>
+            <!-- the value of the "name" property of the SessionFactory -->
+            <value>bookdb</value>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="bookdbHibernateTemplate"/>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="bookdbTxMgr"/>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="bookdbTaskMgr"/>
+        </constructor-arg>
+        <constructor-arg>
+            <map>
+                <entry key="useIndividualCRUDOperations" value="false"/>
+                <entry key="refreshEntities" value=""/> 
+            </map>
+        </constructor-arg>
+    </bean>
+
+
+    <bean 
+        id="bookdbTaskMgr"
+        class="com.wavemaker.runtime.data.DefaultTaskManager"
+        lazy-init="true"/>
+
+    <bean class="com.wavemaker.runtime.service.events.EventWire"
+        lazy-init="false">
+        <property name="serviceWire" ref="bookdbServiceWire"/>
+        <property name="eventListener">
+            <bean class="com.wavemaker.runtime.data.DataServiceEventListener"/>
+        </property>
+    </bean>
+
+    <bean id="bookdbServiceWire"
+        class="com.wavemaker.runtime.service.reflect.ReflectServiceWire"
+        lazy-init="false" scope="singleton">
+        <property name="serviceId" value="bookdb"/>
+        <property name="serviceType" ref="DataService"/>
+    </bean>
+
+</beans>
